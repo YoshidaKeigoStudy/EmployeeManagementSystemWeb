@@ -2,9 +2,12 @@ package employee.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import employee.model.Employee;
 import employee.repository.EmployeeRepository;
 
+@Service
 public class EmployeeService {
 	private EmployeeRepository repository;
 
@@ -25,7 +28,7 @@ public class EmployeeService {
 
 	/** 退職者を除く一覧取得処理 **/
 	public List<Employee> findActiveEmployees() {
-		return repository.findActiveEmployee();
+		return repository.findByRetiredFalse();
 	}
 
 	/** 検索処理 **/
@@ -35,7 +38,7 @@ public class EmployeeService {
 
 	/** 退職者を除く部署別一覧取得 **/
 	public List<Employee> findByDepartment(String dept) {
-		List<Employee> activeEmployees = repository.findByDepartmentActive(dept);
+		List<Employee> activeEmployees = repository.findByDepartmentAndRetiredFalse(dept);
 		// 空の場合例外処理
 		if (activeEmployees.isEmpty()) {
 			throw new IllegalArgumentException("その部署名で登録されている社員は存在しません。");
