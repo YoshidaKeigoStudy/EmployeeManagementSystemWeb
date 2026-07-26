@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>社員管理システム</title>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h1>社員一覧</h1>
+		<!--表作成-->
+		<table border="1">
+			<tr>
+				<!--列作成-->
+				<th>社員ID</th>
+				<th>name</th>
+				<th>age</th>
+				<th>department</th>
+			</tr>
+			<tr th:each="employee:${employees}">
+				<td th:text="${employee.employeeId}"></td>
+				<td th:text="${employee.name}"></td>
+				<td th:text="${employee.age}"></td>
+				<td th:text="${employee.department}"></td>
+			</tr>
+		</table>
+	</body>
+</html>

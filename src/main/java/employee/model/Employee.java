@@ -1,12 +1,28 @@
 package employee.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "employee")
 /** 社員情報を保持するデータクラス **/
 public class Employee {
+	@Id
+	@Column(name = "employeeId")
 	private String employeeId; // 社員ID
+	@Column(name = "name")
 	private String name; // 氏名
+	@Column(name = "age")
 	private int age; // 年齢
+	@Column(name = "department")
 	private String department; // 部署
+	@Column(name = "retired")
 	private boolean retired = false; // 退職フラグ
+
+	public Employee() {
+	}
 
 	// コンストラクタ
 	public Employee(String employeeId, String name, int age, String department) {
