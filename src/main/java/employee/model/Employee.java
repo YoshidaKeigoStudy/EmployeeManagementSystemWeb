@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 /** 社員情報を保持するデータクラス **/
 public class Employee {
 	@Id
-	@Column(name = "employeeId")
+	@Column(name = "employee_id")
 	private String employeeId; // 社員ID
 	@Column(name = "name")
 	private String name; // 氏名
