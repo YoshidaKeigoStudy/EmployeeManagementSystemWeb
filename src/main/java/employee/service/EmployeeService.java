@@ -64,4 +64,8 @@ public class EmployeeService {
 		return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("そのIDの社員は存在しません。"));
 	}
 
+	// 氏名部分一致検索
+	public List<Employee> findByName(String name) {
+		return repository.findByNameContaining(name);
+	}
 }

@@ -20,4 +20,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 	// 部署名で社員一覧を取得する（退職者を除く）
 	public List<Employee> findByDepartmentAndRetiredFalse(String department);
 
+	// 氏名部分一致検索
+	public List<Employee> findByNameContaining(String name);
 }

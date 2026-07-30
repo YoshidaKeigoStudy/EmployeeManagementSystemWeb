@@ -30,6 +30,13 @@ public class EmployeeController {
 		return "employeeList";
 	}
 
+	// 登録画面表示
+	@GetMapping("/regist")
+	public String regist(Model model) {
+
+		return "regist";
+	}
+
 	// 登録メソッド
 	@PostMapping("/regist")
 	public String regist(EmployeeForm employeeForm) {
@@ -41,10 +48,18 @@ public class EmployeeController {
 
 	// 検索メソッド
 	@GetMapping("/employees/search")
-	public String search(@RequestParam("employeeId") String employeeId, Model model) {
-		List<Employee> employees = Arrays.asList(employeeService.search(employeeId));
+	public String search(@RequestParam(value = "employeeId", required = false) String employeeId,
+			@RequestParam(value = "employeeName", required = false) String name, Model model) {
+		List<Employee> employees;
+
+		// もしIDが入力されていないなら名前検索を、そうでなければId検索結果を入れる
+		if (employeeId == null) {
+			employees = employeeService.findByName(name);
+		} else {
+			employees = Arrays.asList(employeeService.search(employeeId));
+		}
+
 		model.addAttribute("employees", employees);
 		return "employeeList";
 	}
-
 }
