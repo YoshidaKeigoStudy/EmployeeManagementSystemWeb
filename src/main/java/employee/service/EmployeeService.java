@@ -1,5 +1,6 @@
 package employee.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -32,8 +33,14 @@ public class EmployeeService {
 	}
 
 	/** 検索処理 **/
-	public Employee search(String id) {
-		return findById(id);
+	public List<Employee> search(String keyword) {
+		if (keyword == null) {
+			return repository.findAll();
+		} else if (repository.existsById(keyword)) {
+			return Arrays.asList(findById(keyword));
+		} else {
+			return findByName(keyword);
+		}
 	}
 
 	/** 退職者を除く部署別一覧取得 **/
@@ -60,7 +67,7 @@ public class EmployeeService {
 	}
 
 	// 対象の社員情報があれば取得、なければ例外処理をするメソッド
-	private Employee findById(String id) {
+	public Employee findById(String id) {
 		return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("そのIDの社員は存在しません。"));
 	}
 

@@ -1,6 +1,5 @@
 package employee.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -48,18 +47,24 @@ public class EmployeeController {
 
 	// 検索メソッド
 	@GetMapping("/employees/search")
-	public String search(@RequestParam(value = "employeeId", required = false) String employeeId,
-			@RequestParam(value = "employeeName", required = false) String name, Model model) {
-		List<Employee> employees;
-
-		// もしIDが入力されていないなら名前検索を、そうでなければId検索結果を入れる
-		if (employeeId == null) {
-			employees = employeeService.findByName(name);
-		} else {
-			employees = Arrays.asList(employeeService.search(employeeId));
-		}
+	public String search(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
+		List<Employee> employees = employeeService.search(keyword);
 
 		model.addAttribute("employees", employees);
 		return "employeeList";
+	}
+
+	// 社員情報更新
+	@GetMapping("/update")
+	public String update() {
+		return "update";
+	}
+
+	// 編集対象社員取得
+	@GetMapping("/employees/edit")
+	public String edit(@RequestParam("employeeId") String employeeId, Model model) {
+		Employee employee = employeeService.findById(employeeId);
+		model.addAttribute("employee", employee);
+		return "edit";
 	}
 }

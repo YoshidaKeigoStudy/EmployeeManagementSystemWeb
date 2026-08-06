@@ -8,8 +8,8 @@
 		<h1>社員一覧</h1>
 		<!--検索フォーム-->
 		<form action="/employees/search" method="get">
-			<label>社員ID：</label>
-			<input type="text" name="employeeId">
+			<label>社員ID/名前：</label>
+			<input type="text" name="keyword" placeholder="IDか名前を入力">
 			<button type="submit">検索</button>
 		</form>
 		
@@ -21,12 +21,19 @@
 				<th>name</th>
 				<th>age</th>
 				<th>department</th>
+				<th>操作</th>
 			</tr>
 			<tr th:each="employee:${employees}">
 				<td th:text="${employee.employeeId}"></td>
 				<td th:text="${employee.name}"></td>
 				<td th:text="${employee.age}"></td>
 				<td th:text="${employee.department}"></td>
+				<td>
+					<form action="/employees/edit" method="get">
+						<input type="hidden" name="employeeId" th:value="${employee.employeeId}">
+						<button type="submit">編集</button>
+					</form>
+				</td>
 			</tr>
 		</table>
 		
